@@ -1,122 +1,99 @@
-# IMDb Sentiment Analysis - MLOps Zoomcamp Final Project
+# IMDb Sentiment Analysis - MLOps Project
 
-This project demonstrates a complete MLOps pipeline applied to a sentiment analysis model on TV show reviews using the `imdb_tvshows.csv` dataset.
+## 📌 Project Description
 
----
-## Problem Description
+This project presents an end-to-end Machine Learning pipeline for classifying IMDb TV show reviews by sentiment (positive or negative). It integrates core MLOps components, such as experiment tracking, deployment, orchestration, and monitoring.
 
-The goal of this project is to classify the sentiment of user reviews for TV shows as either positive or negative. The data consists of textual reviews labeled with sentiment, sourced from the IMDb dataset.
-This use case simulates a real-world production scenario, where a sentiment classification model must be:
-- Trained, evaluated, and registered with experiment tracking
-- Served via an API to respond to user input
-- Monitored over time to detect potential performance degradation or data drift
-- Orchestrated with scheduled workflows for automation
+## 💡 Problem Description
 
-By approaching the problem with a full MLOps pipeline, we aim to ensure robustness, scalability, and maintainability in a production-like setting.
+Users often rely on reviews to decide whether to watch a show. Automatically classifying sentiment in IMDb reviews can help platforms recommend content and better understand user feedback. This project solves the problem of automating sentiment classification using an ML model deployed and monitored in production.
 
-## 🔧 Technologies Used
+## 🚀 Features
 
-- Python
-- Scikit-learn
-- MLflow
-- Evidently
-- Docker
-- Airflow
-- Google Cloud Platform (GCP): Storage + Cloud Run
+- Model Training with `LogisticRegression` and `TfidfVectorizer`
+- Experiment tracking and model registry with MLflow
+- Model deployment using FastAPI, Docker and Cloud Run (GCP)
+- Monitoring with Evidently + Airflow + GCS
+- Workflow orchestration with Apache Airflow
+- Cloud-based artifacts and bucket integration (GCS)
+- Testing and reproducibility best practices
 
----
+## ☁️ Cloud Components
 
-## 📁 Project Structure
+- Google Cloud Storage (GCS)
+- Google Cloud Run
+- Artifact Registry
 
-```
-imdb_sentiment_project/
-├── data/
-│   └── raw/                  <- Original file `imdb_tvshows.csv`
-├── src/
-│   ├── data/                 <- Cleaning, splitting, preprocessing
-│   ├── train/                <- Training with MLflow and GridSearchCV
-│   ├── serve/                <- FastAPI + MLflow API
-│   └── monitor/              <- Evidently report and GCS upload
-├── dags/                     <- Airflow DAG for monitoring
-├── models/                   <- Exported model
-├── reports/                  <- Generated HTML report
-├── requirements.txt
-└── docker-compose.yaml
-```
+## 🧪 Experiment Tracking
 
----
+- MLflow tracks experiments, parameters, and metrics
+- Model artifacts saved and logged in MLflow
 
-## ⚙️ Project Flow
+## 🔁 Workflow Orchestration
 
-1. **Ingestion and preprocessing**
-   - Clean and split the dataset into train, val, test.
+- DAG defined in Airflow for generating monitoring report and uploading it to GCS
 
-2. **Training**
-   - Train a model using `TfidfVectorizer` + `LogisticRegression`.
-   - Model is registered with MLflow.
+## 🧼 Monitoring
 
-3. **Deployment**
-   - Model is packaged in Docker and pushed to GCP.
-   - API exposed via Cloud Run with `/predict` endpoint.
+- Evidently used for generating a classification metrics report
+- HTML report saved and uploaded to a public GCS bucket
 
-4. **Monitoring**
-   - Evidently report compares validation vs test set.
-   - Report is uploaded to GCS automatically.
+## 🧪 Tests
 
----
+Basic test for model training logic using Pytest included in `tests/test_train.py`.
 
-## 🔍 Final Results
+## ⚙️ How to Run
 
-- Prediction API endpoint (FastAPI):
-  ```
-  https://sentiment-api-417391075761.us-central1.run.app/predict
-  ```
+1. Clone the repo and create the environment:
+    ```bash
+    conda env create -f environment.yml
+    conda activate imdb_sentiment_env
+    ```
 
-- Monitoring report:
-  ```
-  https://storage.googleapis.com/imdb-monitoring-renzo/reports/classification_report.html
-  ```
+2. Train and log the model:
+    ```bash
+    python src/train/train.py
+    ```
 
----
+3. Serve the model with FastAPI locally:
+    ```bash
+    python src/serve/serve_model.py
+    ```
 
-## ✅ How to Run
+4. Generate monitoring report:
+    ```bash
+    python src/monitor/generate_report.py
+    ```
 
-1. Create environment:
-   ```
-   pip install -r requirements.txt
-   ```
+5. Run tests:
+    ```bash
+    pytest tests/
+    ```
 
-2. Start Airflow:
-   ```
-   docker-compose up airflow-init
-   docker-compose up
-   ```
+## 🐳 Docker & Cloud Deployment
 
-3. Train model:
-   ```
-   python src/train/train.py
-   ```
+- Build and push Docker image to Artifact Registry
+- Deploy with:
+    ```bash
+    gcloud run deploy sentiment-api --image <your_image_path> --region us-central1 --allow-unauthenticated
+    ```
 
-4. Test API:
-   ```
-   curl -X POST -H "Content-Type: application/json" \
-     -d '{"text": "This show was amazing!"}' \
-     https://sentiment-api-417391075761.us-central1.run.app/predict
-   ```
+## 📊 Monitoring Report
 
-5. Trigger DAG manually from Airflow UI.
+You can access the latest monitoring report at:  
+👉 https://storage.googleapis.com/imdb-monitoring-renzo/reports/classification_report.html
+
+## ✅ Evaluation Criteria Covered
+
+- [x] Problem clearly described
+- [x] Uses cloud for deployment and monitoring (GCP)
+- [x] MLflow used for tracking and registry
+- [x] Airflow used for workflow orchestration
+- [x] Model deployed on Cloud Run with Docker
+- [x] Model monitoring with Evidently
+- [x] Reproducible environment (`environment.yml`, `Makefile`)
+- [x] Basic test + Makefile + CI-ready structure
 
 ---
 
-## 🧹 Optional Production Improvements
-
-- Use `KubernetesExecutor` or `CeleryExecutor`.
-- Automate ingestion and retraining.
-- Add alerting if model performance degrades (Evidently).
-
----
-
-## 👨‍💻 Author
-
-Renzo Claure  
-Final Project - MLOps Zoomcamp 2025
+Created by Renzo for the MLOps Zoomcamp Final Project.
