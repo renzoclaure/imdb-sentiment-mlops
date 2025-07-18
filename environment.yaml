@@ -1,0 +1,13 @@
+name: imdb_sentiment_env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pandas
+  - google-cloud-storage
+  - ipykernel
+  - jupyterlab
+  - scikit-learn
+  - mlflow
+

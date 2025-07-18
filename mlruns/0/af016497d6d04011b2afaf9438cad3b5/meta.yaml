@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/0/af016497d6d04011b2afaf9438cad3b5/artifacts
+end_time: 1752764578462
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: af016497d6d04011b2afaf9438cad3b5
+run_name: skillful-snipe-352
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752764535331
+status: 4
+tags: []
+user_id: renzo

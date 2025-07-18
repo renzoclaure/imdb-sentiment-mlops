@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/0/b6468ea967f74198803b07b52f51476a/artifacts
+end_time: 1752765012078
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: b6468ea967f74198803b07b52f51476a
+run_name: hilarious-shad-626
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752764981040
+status: 3
+tags: []
+user_id: renzo
