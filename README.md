@@ -3,6 +3,16 @@
 This project demonstrates a complete MLOps pipeline applied to a sentiment analysis model on TV show reviews using the `imdb_tvshows.csv` dataset.
 
 ---
+## Problem Description
+
+The goal of this project is to classify the sentiment of user reviews for TV shows as either positive or negative. The data consists of textual reviews labeled with sentiment, sourced from the IMDb dataset.
+This use case simulates a real-world production scenario, where a sentiment classification model must be:
+- Trained, evaluated, and registered with experiment tracking
+- Served via an API to respond to user input
+- Monitored over time to detect potential performance degradation or data drift
+- Orchestrated with scheduled workflows for automation
+
+By approaching the problem with a full MLOps pipeline, we aim to ensure robustness, scalability, and maintainability in a production-like setting.
 
 ## 🔧 Technologies Used
 
